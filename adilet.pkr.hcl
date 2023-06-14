@@ -29,7 +29,7 @@ source "amazon-ebs" "example" {
   region        = var.aws_region
   instance_type = var.instance_type
   ssh_username  = "ubuntu"
-  ami_name = "my-ami-${formatdate("2006-01-02T15-04-05Z07:00", timestamp())}"
+  ami_name = "my-ami-${formatdate("2006-01-02-15-04-05", timestamp())}"
 
   source_ami_filter {
     filters = {
