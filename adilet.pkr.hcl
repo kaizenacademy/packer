@@ -48,3 +48,9 @@ source "amazon-ebs" "example" {
     ]
   }
 }
+
+build {
+  sources = [
+    "source.amazon-ebs.example"
+  ]
+}
