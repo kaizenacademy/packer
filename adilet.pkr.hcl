@@ -23,7 +23,7 @@ variable "instance_type" {
   default = "t2.micro"
 }
 
-variable "jenkins_build_number" {
+variable "buildNumber" {
   type    = string
   default = "unknown"
 }
