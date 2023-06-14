@@ -39,6 +39,12 @@ source "amazon-ebs" "example" {
     owners = ["099720109477"]
     most_recent = true
   }
+}
+
+build {
+  sources = [
+    "source.amazon-ebs.example"
+  ]
 
   provisioner "shell" {
     inline = [
@@ -47,10 +53,4 @@ source "amazon-ebs" "example" {
       "sudo systemctl enable httpd"
     ]
   }
-}
-
-build {
-  sources = [
-    "source.amazon-ebs.example"
-  ]
 }
