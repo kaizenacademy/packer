@@ -15,28 +15,6 @@ spec:
     '''
 def buildNumber = env.BUILD_NUMBER
 
-// properties([
-//     parameters([
-//         choice(choices: ['dev', 'qa', 'stage', 'prod'], description: 'Pick region', name: 'region')
-//         ])
-//         ])
-
-// if( params.region == "dev" ) {
-//     region = "us-east-1"
-// }
-// else if ( params.region == "qa" ) {
-//     region = "us-east-2"
-// }
-
-// else if ( params.region == "stage" ) {
-//     region = "us-west-1"
-// }
-
-// else {
-//     region = "us-west-2"
-// }
-
-
 if( env.BRANCH_NAME == "dev" ) {
     region = "us-east-1"
 }
@@ -63,6 +41,8 @@ podTemplate(cloud: 'kubernetes', label: 'packer', showRawYaml: false, yaml: temp
     withEnv(["AWS_REGION=${region}"]) {
     stage("Packer version"){
         sh "packer build -var 'jenkins_build_number=${buildNumber}' ./adilet.pkr.hcl"
+
+        build job: 'terraform-ec2', parameters: [string(name: 'action', value: 'apply'), string(name: 'region', value: "${region}"), string(name: 'ami_name', value: "my-ami-${buildNumber}"), string(name: 'az', value: "${region}b")]
     }
 }
 
