@@ -30,6 +30,7 @@ else {
     error 'Branch doesn\'t match environment'
 }
 
+
 podTemplate(cloud: 'kubernetes', label: 'packer', showRawYaml: false, yaml: template){
     node("packer"){
     container("packer"){
